@@ -7,6 +7,9 @@
  * Platforms:    Linux
  */
 
+#ifndef LOG_H
+#define LOG_H
+
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -34,6 +37,13 @@ public:
   int logMsg( unsigned int v, const char* p, ... );
   void setQuiet(bool q);
 };
+
+
+
+#endif // LOG_H
+
+
+
 
 
 

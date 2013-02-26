@@ -1,15 +1,19 @@
 /*
- * File:         log.cpp
+ * File:         configFileParser.h
  * Created:      2013-02-07
  * Authors:      Dennis Vesterlund
  * License:      Apache License, see LICENSE
- * Description:  
+ * Description:  Header for config file parsing class
  * Platforms:    Linux
  */
+
+#ifndef CONFIGFILEPARSER_H
+#define CONFIGFILEPARSER_H
 
 #include <cstdio>
 #include <string>
 #include <vector>
+
 
 class fileParser {
  public:
@@ -21,15 +25,20 @@ class fileParser {
   int parseFile();
   std::vector<configOption> getAllOptions();
   configOption getOneOption();
- private:
-  std::vector<configOption> configOptions;
+  std::string cleanStringFrom(std::string s, const char c);
+  std::string stripComment(std::string line);
   void cleanCString( char * string, int length );
   configOption parseLine(char * line);
+
+private:
+  std::vector<configOption> configOptions;
   std::string fileName;
   int bufferSize;
-  std::string stripComment(std::string line);
-  std::string cleanStringFrom(std::string s, const char c);
 };
+
+
+#endif // CONFIGFILEPARSER_H
+
 
 
 
