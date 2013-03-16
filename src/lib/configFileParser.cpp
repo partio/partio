@@ -124,6 +124,7 @@ std::vector<fileParser::configOption> fileParser::getAllOptions() {
  * Desription: Returns one option each time called
  * Output: A single key and value
  */
+/// @TODO This always only returns the last option... always
 fileParser::configOption fileParser::getOneOption() {
     fileParser::configOption temp;
     temp.optionName = this->configOptions.back().optionName;
@@ -133,9 +134,18 @@ fileParser::configOption fileParser::getOneOption() {
 
 
 /**
- * @todo write isEmpty function
+ * Description: Returns whether there are any config options loaded
+ * Output: False if there are options in the list
  */
+bool fileparser::isEmpty() {
 
+    return this->configOptions.empty();
+
+}
+
+
+
+/// @TODO give a way to resave configchanges
 
 
 

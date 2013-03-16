@@ -84,3 +84,97 @@ size_t network::strlen(const char *str) {
 void network::closeSocket() {
     close(network::sockfd);
 }
+
+
+/**
+ * Description: Class creator
+ */
+unix_socket::unix_socket(char* s) {
+    this->path = s;
+    this->local.sun_family = AF_UNIX;
+    this->sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+}
+
+/**
+ * Description: enable this socket
+ * Output: 0 - Everything went well
+ *         1 - Could not create socket
+ *         2 - Could not bind socket
+ *         3 - Could not listen
+ */
+int unix_socket::enableSocket() {
+    if (this->sockfd == -1) {
+        return 1;
+    }
+
+    strcpy(this->local.sun_path, this->path.c_str());
+    int len = strlen(local.sun_path) + sizeof(local.sun_family);
+
+    if (bind(this->sockfd, (struct sockaddr *)&local, len) == -1) {
+        return 2;
+    }
+
+    if (listen(this->sockfd, 5) == -1) {
+        return 3;
+    }
+    
+    return 0;
+}
+
+/**
+ * Description: Change socket path
+ */
+void unix_socket::changePath(char* s) {
+    this->dissableSocket();
+    this->path = s;
+    this->enableSocket();
+}
+
+/**
+ * Description: Returns socket
+ */
+int unix_socket::getSocket() {
+    return this->sockfd;
+}
+
+/**
+ * Description: Stops socket from litsening
+ */
+void unix_socket::dissableSocket() {
+    unlink(this->local.sun_path);
+}
+
+
+void unix_socket::closeSocket() {
+    close(this->sockfd);
+};
+
+char *unix_socket::readMessage() {
+    
+}
+
+unix_socket::~unix_socket() {
+    this->closeSocket();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
