@@ -11,6 +11,7 @@
 #define CHAT_H
 
 #include <string>
+#include "lib/network.h"
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
@@ -22,8 +23,8 @@ private:
     static std::string username;
 public:
     chat();
-    void writeMessage(std::string s);
-    char *readMessage();
+    void writeMessage(std::string s, network n);
+    char *readMessage(network n);
     std::string getUsername();
     void setUsername(std::string newName);
     size_t strlen(const char *str);

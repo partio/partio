@@ -23,14 +23,12 @@ void chat::setUsername(std::string newName) {
     chat::username = newName;
 }
 
-void chat::writeMessage(std::string s) {
-    network n;
+void chat::writeMessage(std::string s, network n) {
     s.insert(0, username + ": ");
     n.writeMessage(s);
 }
 
-char *chat::readMessage() {
-    network n;
+char *chat::readMessage(network n) {
     return n.readMessage();
 
 }
@@ -40,4 +38,14 @@ size_t chat::strlen(const char *str) {
     for (s = str; *s; ++s);
     return(s - str);
 }
+
+
+
+
+
+
+
+
+
+
 
