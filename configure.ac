@@ -1,4 +1,4 @@
-AC_INIT([Partio], [0.1], [woffie@worfox.se], [partio], [http://worfox.se/])
+AC_INIT([Partio], [0.1], [woffie@worfox.se], [partio], [http://partio.se/])
 AC_PREREQ([2.59])
 AM_INIT_AUTOMAKE([1.10 foreign no-define])
 AC_CONFIG_HEADERS([config.h])

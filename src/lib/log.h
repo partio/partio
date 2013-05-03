@@ -1,5 +1,5 @@
 /*
- * File:         log.cpp
+ * File:         log.h
  * Created:      2013-02-04
  * Authors:      Dennis Vesterlund
  * License:      Apache License, see LICENSE

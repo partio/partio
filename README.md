@@ -22,3 +22,4 @@ Definitely need scaling i.e. server to server talking
 
 Document everything
 
+Botan version 1.10.5
