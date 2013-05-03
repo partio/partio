@@ -28,8 +28,14 @@ void chat::writeMessage(std::string s, network n) {
     n.writeMessage(s);
 }
 
-char *chat::readMessage(network n) {
-    return n.readMessage();
+std::string chat::readMessage(network n) {
+    char *temp = n.readMessage();
+    if(temp != NULL) {
+        std::string s(temp);
+        return s;
+    }
+    std::string s;
+    return s;
 
 }
 

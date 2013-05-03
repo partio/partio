@@ -21,9 +21,9 @@
 
 class network {
 private:
-    static std::string ip;
-    static int port;
-    static int sockfd;
+    std::string ip;
+    int port;
+    int sockfd;
 public:
     network();
     int connectToHost(std::string ip, int port);

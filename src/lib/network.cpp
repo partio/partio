@@ -8,13 +8,13 @@
  ******************************************************************************/
 
 #include "network.h"
-int network::sockfd = socket(AF_INET, SOCK_STREAM, 0);
-std::string network::ip = "127.0.0.1";
-int network::port = 39059;
+
 struct sockaddr_in name;
 
 network::network() {
-
+    network::ip = "127.0.0.1";
+    network::port = 39059;
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
 }
 
 int network::getSocket() {

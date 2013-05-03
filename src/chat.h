@@ -24,7 +24,7 @@ private:
 public:
     chat();
     void writeMessage(std::string s, network n);
-    char *readMessage(network n);
+    std::string readMessage(network n);
     std::string getUsername();
     void setUsername(std::string newName);
     size_t strlen(const char *str);
