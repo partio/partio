@@ -24,6 +24,8 @@ private:
     std::string ip;
     int port;
     int sockfd;
+    bool isConnected;
+    int reconTimes;
 public:
     network();
     int connectToHost(std::string ip, int port);

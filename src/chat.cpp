@@ -23,13 +23,13 @@ void chat::setUsername(std::string newName) {
     chat::username = newName;
 }
 
-void chat::writeMessage(std::string s, network n) {
+void chat::writeMessage(std::string s, network *n) {
     s.insert(0, username + ": ");
-    n.writeMessage(s);
+    n->writeMessage(s);
 }
 
-std::string chat::readMessage(network n) {
-    char *temp = n.readMessage();
+std::string chat::readMessage(network *n) {
+    char *temp = n->readMessage();
     if(temp != NULL) {
         std::string s(temp);
         return s;

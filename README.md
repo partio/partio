@@ -39,7 +39,8 @@ whatever type it is.
 
 # Librarys used
 
-It might work with older or newer versions but it is developed with the specified one
+It might work with older or newer versions but it is developed with the
+specified one
 
 * Botan version 1.10.5
 

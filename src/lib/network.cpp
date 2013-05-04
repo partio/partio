@@ -15,6 +15,8 @@ network::network() {
     network::ip = "127.0.0.1";
     network::port = 39059;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    this->isConnected = false;
+    this->reconTimes = 0;
 }
 
 int network::getSocket() {
@@ -46,9 +48,10 @@ int network::connectToHost(std::string ip, int port) {
     name.sin_port = htons(port);
 
     if (connect(sockfd,(struct sockaddr *) &name,sizeof(name)) < 0) {
-        std::cout << "Connection failure" << std::endl;
+
         return 1;
     }
+    this->isConnected = true;
     fcntl(sockfd, F_SETFL, O_NONBLOCK);
     return 0;
 }
@@ -64,7 +67,21 @@ void network::writeMessage(std::string s) {
 char *network::readMessage() {
     char buffer[1024];
     bzero(buffer,1024);
-    recv(sockfd,buffer,sizeof(buffer),0);
+    if((recv(sockfd,buffer,sizeof(buffer),0) == 0 || !isConnected) &&
+            reconTimes < 30) {
+        if(this->isConnected == true) {
+            std::cout << sockfd << ": Connection failure" << std::endl;
+        }
+        network::isConnected = false;
+        close(network::sockfd);
+        network::sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        sleep(1);
+        this->reconTimes++;
+        std::cout << reconTimes << std::endl;
+        if(connectToHost(this->ip, this->port) == 0) {
+            this->reconTimes = 0;
+        }
+    }
     if (buffer[0] > 0) {
         char *resBuf;
         resBuf = buffer;
