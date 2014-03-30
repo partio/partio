@@ -17,6 +17,7 @@ network::network() {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     this->isConnected = false;
     this->reconTimes = 0;
+    
 }
 
 int network::getSocket() {
@@ -55,13 +56,17 @@ int network::connectToHost(std::string ip, int port) {
     fcntl(sockfd, F_SETFL, O_NONBLOCK);
     return 0;
 }
-
+  
 void network::writeMessage(std::string s) {
     char input[1024];
     bzero(input,1024);
     s.copy(input,1024,0);
-    sendto(sockfd, input, sizeof(input), 0,
-           (struct sockaddr*)&name, sizeof(name));
+    if(isConnected) {
+        sendto(sockfd, input, sizeof(input), 0,
+               (struct sockaddr*)&name, sizeof(name));
+    } else {
+        std::cout << "Not connected to " << ip << " could not send message\n";
+    }
 }
 
 char *network::readMessage() {
@@ -83,10 +88,9 @@ char *network::readMessage() {
         }
     }
     if (buffer[0] > 0) {
-        char *resBuf;
-        resBuf = buffer;
+        char * resBuf = new char[1024];
+        strcpy(resBuf, buffer);
         return resBuf;
-        bzero(resBuf, sizeof resBuf);
     }
     return 0;
 }
